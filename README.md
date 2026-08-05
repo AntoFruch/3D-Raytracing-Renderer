@@ -5,6 +5,9 @@ Only supports rendering of spheres at the moment
 ## Screenshots
 ![screen](docs/screen.png)
 
+## Controls
+The Camera can be moved using Z,Q,S,D, Space for going up and LShift to go down. Look around with right click and drag.  
+Controls are modifiable in [input_config.xml](res/input_config.xml)
 ## TODO 
 
 * Better Mouse handling
