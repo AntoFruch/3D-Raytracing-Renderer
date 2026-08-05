@@ -31,8 +31,8 @@ App::App() :
         {1.0, 0.2, 0.3}
     });
     mScene.push_back({
-        {0.0, 1.0, -3.0},
-        0.5,
+        {1.0, 1.0, -3.0},
+        0.7,
         {0.3, 0.2, 1.0}
     });
 
@@ -104,6 +104,8 @@ void App::processEvents()
         if (const auto* resizeEvent = event->getIf<sf::Event::Resized>())
         {
             sf::Vector2f newSize(static_cast<float>(resizeEvent->size.x), static_cast<float>(resizeEvent->size.y));
+            mShader.setUniform("u_resolution", newSize);
+            mCanvas.setSize(newSize);
             mWindow.setView(sf::View(sf::FloatRect({0.f, 0.f}, newSize)));
         }
 
