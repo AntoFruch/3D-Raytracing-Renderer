@@ -42,9 +42,8 @@ void Camera::updateVectors()
 void Camera::look(float deltaX, float deltaY)
 {
     yaw += deltaX * sensitivity;
-    pitch -= deltaY * sensitivity; // Inversion Y pour une visée naturelle
+    pitch -= deltaY * sensitivity;
 
-    // Bloque la caméra à vertical -89° / +89° pour éviter le blocage de Gimbal
     if (pitch > 89.0f) pitch = 89.0f;
     if (pitch < -89.0f) pitch = -89.0f;
 
@@ -55,7 +54,6 @@ void Camera::move(float forward, float rightMove, float upMove, float dt)
 {
     float velocity = speed * dt;
 
-    // Calcul du vecteur Droite local (produit vectoriel avec l'axe Y du monde)
     sf::Glsl::Vec3 rightDir{ -dir.z, 0.0f, dir.x };
     float rLen = std::sqrt(rightDir.x * rightDir.x + rightDir.z * rightDir.z);
     if (rLen > 0.0001f) {
@@ -65,7 +63,6 @@ void Camera::move(float forward, float rightMove, float upMove, float dt)
 
     sf::Glsl::Vec3 worldUp{ 0.0f, 1.0f, 0.0f };
 
-    // Mise à jour de la position
     pos.x += (dir.x * forward + rightDir.x * rightMove + worldUp.x * upMove) * velocity;
     pos.y += (dir.y * forward + rightDir.y * rightMove + worldUp.y * upMove) * velocity;
     pos.z += (dir.z * forward + rightDir.z * rightMove + worldUp.z * upMove) * velocity;
