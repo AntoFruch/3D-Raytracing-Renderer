@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<InputActions>
+    <Action label="Move" type="Vector2D">
+        <!-- ZQSD -->
+        <binding>
+            <up bind="Z"/>
+            <down bind="S"/>
+            <left bind="Q"/>
+            <right bind="D"/>
+        </binding>
+    </Action>
+</InputActions>
