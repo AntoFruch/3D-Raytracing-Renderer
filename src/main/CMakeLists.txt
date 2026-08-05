@@ -4,10 +4,12 @@ add_executable(main
 
 target_link_libraries(main PUBLIC lib_core sfml-graphics)
 
-add_custom_target(copy-res ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/res)
-add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/res
-        DEPENDS ${CMAKE_SOURCE_DIR}/res
+add_custom_target(copy-res ALL
         COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
         ${CMAKE_SOURCE_DIR}/res
-        ${CMAKE_CURRENT_BINARY_DIR}/res)
+        ${CMAKE_CURRENT_BINARY_DIR}/res
+        COMMENT "Mise à jour des ressources..."
+)
+
 add_dependencies(main copy-res)
+
