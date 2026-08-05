@@ -9,4 +9,10 @@
             <right bind="D"/>
         </binding>
     </Action>
+    <Action label="Jump" type="Button">
+        <binding bind="Space"/>
+    </Action>
+    <Action label="Crouch" type="Button">
+        <binding bind="LShift"/>
+    </Action>
 </InputActions>

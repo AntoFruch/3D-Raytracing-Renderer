@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 4.2)
 
 include (FetchContent)
 
-project(project VERSION 1.0.0 LANGUAGES CXX)
+project(3D-raytracing-renderer VERSION 1.0.0 LANGUAGES CXX)
 
 # =========== SFML ====================
 fetchContent_Declare( sfml

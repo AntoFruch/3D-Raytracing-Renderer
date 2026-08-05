@@ -3,6 +3,7 @@ add_library(lib_core
         App.h
         Inputs/InputAction.cpp
         Inputs/InputManager.cpp
+        Camera.cpp
 )
 
 target_include_directories(lib_core PUBLIC ./)
