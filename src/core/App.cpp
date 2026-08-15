@@ -17,28 +17,26 @@ App::App() :
     ),
     mCanvas(static_cast<sf::Vector2f>(mWindow.getSize())),
     mCamera(
-        {0,0,1},
+        {0,0,4},
         {0,0,-1},
         1
         )
 {
-    mScene.push_back({
-        {0.0, 0.0, -4.0},
-        0.5,
-        {1.0, 0.2, 0.3}
-    });
-    mScene.push_back({
-        {0.0, 1.0, -3.0},
-        0.5,
-        {0.3, 0.2, 1.0}
-    });
-    
+
     // shader init
-    std::filesystem::path shader_path = "res/shaders/sphere-raytracing.frag";
+    std::filesystem::path shader_path = "res/shaders/obj-rtx.frag";
     if (!mShader.loadFromFile(shader_path, sf::Shader::Type::Fragment))
     {
         throw std::runtime_error(std::format(".frag shader file at {} could not be loaded.",shader_path.string()));
     }
+
+    loadOBJ(mScene, "res/obj/cow.obj");
+    const SceneTextureInfo sceneTextureInfo = createSceneTexture(mScene, mSceneTexture);
+
+    mShader.setUniform("u_sceneTexture", mSceneTexture);
+    mShader.setUniform("u_triangleCount", static_cast<int>(mScene.size()));
+    mShader.setUniform("u_sceneMinBounds", sceneTextureInfo.minBounds);
+    mShader.setUniform("u_sceneMaxBounds", sceneTextureInfo.maxBounds);
     mShader.setUniform("u_resolution", static_cast<sf::Vector2f>(mWindow.getSize()));
     mCamera.updateForShader(&mShader);
 }
@@ -104,14 +102,6 @@ void App::update(const sf::Time& elapsedTime)
 
     // --- MISE À JOUR DU SHADER ---
     mShader.setUniform("u_resolution", sf::Glsl::Vec2(mWindow.getSize().x, mWindow.getSize().y));
-    mShader.setUniform("u_sphereCount", static_cast<int>(mScene.size()));
-
-    for (size_t i = 0; i < mScene.size(); ++i) {
-        std::string prefix = "u_spheres[" + std::to_string(i) + "].";
-        mShader.setUniform(prefix + "center", mScene[i].center);
-        mShader.setUniform(prefix + "radius", mScene[i].radius);
-        mShader.setUniform(prefix + "color", mScene[i].color);
-    }
 }
 
 void App::render()
@@ -146,14 +136,14 @@ void App::processEvents()
 
         // --- GESTION DE LA SOURIS (PAN/LOOK) ---
         if (const auto* mouseBtnPressed = event->getIf<sf::Event::MouseButtonPressed>()) {
-            if (mouseBtnPressed->button == sf::Mouse::Button::Right) {
+            if (mouseBtnPressed->button == sf::Mouse::Button::Left) {
                 mIsMouseDragging = true;
                 mLastMousePos = sf::Mouse::getPosition(mWindow);
             }
         }
 
         if (const auto* mouseBtnReleased = event->getIf<sf::Event::MouseButtonReleased>()) {
-            if (mouseBtnReleased->button == sf::Mouse::Button::Right) {
+            if (mouseBtnReleased->button == sf::Mouse::Button::Left) {
                 mIsMouseDragging = false;
             }
         }

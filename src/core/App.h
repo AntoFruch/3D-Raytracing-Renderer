@@ -7,15 +7,12 @@
 #include "Camera.h"
 #include "InputManager.h"
 #include "SFML/Graphics.hpp"
+#include "ObjectLoading.h"
 
 #define W_WIDTH 800
 #define W_HEIGHT 600
 
-struct Sphere {
-    sf::Glsl::Vec3 center;
-    float radius;
-    sf::Glsl::Vec3 color;
-};
+#include "Triangle.h"
 
 class App {
     sf::RenderWindow mWindow;
@@ -25,7 +22,8 @@ class App {
     sf::Shader mShader;
 
     Camera mCamera;
-    std::vector<Sphere> mScene{};
+    std::vector<Triangle> mScene{};
+    sf::Texture mSceneTexture;
 
     static const sf::Time timePerFrame;
 
@@ -40,7 +38,6 @@ private:
     void update(const sf::Time& elapsedTime);
     void render();
     void processEvents();
-    void handleInput();
 
 };
 
