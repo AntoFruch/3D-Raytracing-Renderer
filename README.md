@@ -4,3 +4,4 @@ This project was a kind of first step in GPU coding for me. It uses SFML and its
 
 ## Screenshots
 ![screen](docs/screen.png)
+![screen](docs/cow.png)

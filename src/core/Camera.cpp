@@ -4,6 +4,8 @@
 
 #include "Camera.h"
 
+#include <cmath>
+
 Camera::Camera(sf::Glsl::Vec3 pos, sf::Glsl::Vec3 dir, float focal_length)
     : pos(pos), dir(dir), focal_length(focal_length)
 {
